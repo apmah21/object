@@ -58,7 +58,211 @@ void loop() {
   myservo.write(val);                  // sets the servo position according to the scaled value
   delay(15);                           // waits for the servo to get there
 }
+    </p>
 
+  <h2> Servo Motor - Sweep</h2>
+  <p>
+    /* Sweep
+ by BARRAGAN <http://barraganstudio.com>
+ This example code is in the public domain.
+
+ modified 8 Nov 2013
+ by Scott Fitzgerald
+ https://www.arduino.cc/en/Tutorial/LibraryExamples/Sweep
+*/
+
+#include <Servo.h>
+
+Servo myservo;  // create Servo object to control a servo
+// twelve Servo objects can be created on most boards
+
+int pos = 0;    // variable to store the servo position
+
+void setup() {
+  myservo.attach(9);  // attaches the servo on pin 9 to the Servo object
+}
+
+void loop() {
+  for (pos = 0; pos <= 180; pos += 1) { // goes from 0 degrees to 180 degrees
+    // in steps of 1 degree
+    myservo.write(pos);              // tell servo to go to position in variable 'pos'
+    delay(15);                       // waits 15 ms for the servo to reach the position
+  }
+  for (pos = 180; pos >= 0; pos -= 1) { // goes from 180 degrees to 0 degrees
+    myservo.write(pos);              // tell servo to go to position in variable 'pos'
+    delay(15);                       // waits 15 ms for the servo to reach the position
+  }
+}
+  </p>
+
+    <h2>DC Motor</h2>
+    <p>
+      /*
+
+VOCAB
+
+IN1, IN2, just refers to what the thing does, but its definition is the pin you give it on the Arduino.
+like for me, I have put IN1 in my Arduino digital pin 9. 
+and I put IN2 on my Arduino digital pin 10. 
+
+
+for driver, put the notch on the left.
+pin 1 is the first CCW (counter-clockwise from that notch.
+so it is like this:
+
+| -- 16 -- 15 --14 -- 13 -- 12 -- 11 -- 10 --- 9 --|
+NOTCH                                              |
+| -- 1 --- 2 --- 3 --- 4 --- 5 --- 6 --- 7 --- 8 --|
+
+
+DRIVER PIN LAYOUT
+
+PIN 1: enable. enables the driver channels. i used a white wire.
+PIN 2: controls direction of motor 1 (only using 1 motor anyway.) (works with IN2)
+PIN 3: goes to motor terminal A (red on the motor's female connector jumper in)
+PIN 4: ground. common ground. idk, i just connected all of these to GND just in case.
+PIN 5: ground.
+PIN 6: motor terminal B (black on the motor's female connector jumper pin)
+PIN 7: controls direction of motor 1 (works with IN1)
+PIN 8: power. use 5V. connect this to the + rail.
+PIN 9: doesnt matter for this project. but it's driver channels 3 and 4, not using.
+PIN 10: motor 2 direction. dont care
+PIN 11: motor 2 terminal A. dont care
+PIN 12: common ground. idk i just plugged it to ground anyway
+PIN 13: ground. idk i just plugged it to ground anyway
+PIN 14: motor terminal B. dont care
+PIN 15: motor 2 direction. dont care
+PIN 16: power for logic translation. connect this to your + rail on breadboard.
+
+*/
+  
+const int IN1 = 9;      //motor direction pin 1
+const int IN2 = 10;     //motor direction pin 2
+const int EN = 5;       //enable pin 
+const int LED_FWD = 12; //forward/counterlockwise - green. i used a 330 ohm resister
+const int LED_REV = 7;  //reverse/cw - blue i used a 330 ohm resister for the LEDs.
+ 
+void setup() {
+  pinMode(IN1, OUTPUT); //driver pin 1. takes input.
+  pinMode(IN2, OUTPUT); //driver pin 2. 
+  pinMode(EN, OUTPUT); //enables
+  pinMode(LED_FWD, OUTPUT); //turns on forward/CCW green LED
+  pinMode(LED_REV, OUTPUT); //turns on reverse/CW blue LED
+  analogWrite(EN, 127); // speed (0-255 range but i cant get anything below like 128 to work)
+}
+ 
+void loop() {
+  //forward/CCW
+  digitalWrite(IN1, HIGH); //IN1 makes it go forward. turn on (high)
+  digitalWrite(IN2, LOW); //IN2 makes it go reverse. turn that off (low)
+  digitalWrite(LED_FWD, HIGH); //Arduino pin D12 going off to the side on the breadboard to a GREEN LED
+  digitalWrite(LED_REV, LOW); //Arduino pin D7 going off the side on the breadboard to a BLUE LED. colors were chosen arbitrarily.
+  delay(2000); //wait before changing
+ 
+  //stop everything
+  digitalWrite(IN1, LOW); //off
+  digitalWrite(IN2, LOW); //off
+  digitalWrite(LED_FWD, LOW); //off
+  delay(1000); //wait
+ 
+  //now reverse
+  digitalWrite(IN1, LOW); //IN1 makes it go forward. turn off
+  digitalWrite(IN2, HIGH); //IN2 makes it go reverse. turn on
+  digitalWrite(LED_REV, HIGH); //now turn on the BLUE LED
+  delay(2000); //wait
+ 
+  //stop
+  digitalWrite(IN1, LOW); //off
+  digitalWrite(IN2, LOW); //off
+  digitalWrite(LED_REV, LOW); //off
+  delay(1000); //wait
+}
+    </p>
+
+    <h2>Stepper Motor</h2>
+    <p>
+      const int INA = 6;
+const int INB = 9;
+const int INC = 10;
+const int IND = 11;
+
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(INA, OUTPUT);
+  pinMode(INB, OUTPUT);
+  pinMode(INC, OUTPUT);
+  pinMode(IND, OUTPUT);
+}
+
+void loop(){
+    digitalWrite(INA, HIGH);
+    digitalWrite(INB, HIGH);
+    digitalWrite(INC, LOW);
+    digitalWrite(IND, LOW);
+    delay(2);
+
+    digitalWrite(INA, LOW);
+    digitalWrite(INB, HIGH);
+    digitalWrite(INC, HIGH);
+    digitalWrite(IND, LOW);
+    delay(2);
+
+    digitalWrite(INA, LOW);
+    digitalWrite(INB, LOW);
+    digitalWrite(INC, HIGH);
+    digitalWrite(IND, HIGH);
+    delay(2);
+
+    digitalWrite(INA, HIGH);
+    digitalWrite(INB, LOW);
+    digitalWrite(INC, LOW);
+    digitalWrite(IND, HIGH);
+    delay(2);
+
+}
+
+// void loop() {
+//   digitalWrite(INA, HIGH);
+//   delay(2000);
+
+
+//   //all off
+//   digitalWrite(INA, LOW);
+//   digitalWrite(INB, LOW);
+//   digitalWrite(INC, LOW);
+//   digitalWrite(IND, LOW);
+//   delay(2000);
+
+//   digitalWrite(INB, HIGH);
+//   delay(2000);
+
+//     //all off
+//   digitalWrite(INA, LOW);
+//   digitalWrite(INB, LOW);
+//   digitalWrite(INC, LOW);
+//   digitalWrite(IND, LOW);
+//   delay(2000);
+
+//    digitalWrite(INC, HIGH);
+//   delay(2000);
+
+//       //all off
+//   digitalWrite(INA, LOW);
+//   digitalWrite(INB, LOW);
+//   digitalWrite(INC, LOW);
+//   digitalWrite(IND, LOW);
+//   delay(2000);
+
+//    digitalWrite(IND, HIGH);
+//   delay(2000);
+
+//         //all off
+//   digitalWrite(INA, LOW);
+//   digitalWrite(INB, LOW);
+//   digitalWrite(INC, LOW);
+//   digitalWrite(IND, LOW);
+//   delay(2000);
+// }
     </p>
   </body>
 
