@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    <meta charset = "UTF-8">
+    <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+
+    <style>
+      
+      body {
+        background-color: black;
+      }
+      
+      h1 {
+        color: white;
+        text-align: center;
+      }
+      
+      p {
+        color: white;
+      }
+      
+    </style>
+    
+    <title>Arman - Motor Buffet</title>
+    
+    <h1>Motor Buffet</h1>
+  </head>
+  
+  <body>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About Me</a>
+      <a href="project1.html">Project 1</a>
+    </nav>
+    
+    <h1>Motor Buffet</h1>
+    <p>I created circuits for three kinds of servo motors in my kit.</p>
+  
+  </body>
+
+</html>
