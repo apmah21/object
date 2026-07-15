@@ -4,19 +4,8 @@
   <head>
     <meta charset = "UTF-8">
     <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
-
-    <style>
-      body {
-        background-color: black;
-      }
-      h1 {
-        color: white;
-        text-align: center;
-      }
-      p {
-        color: white;
-      }
-    </style>
+    
+    <link rel="stylesheet" href="style.css">
     
     <title>Arman - Home</title>
     
@@ -24,13 +13,7 @@
   
   <body>
     
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About Me</a>
-      <a href="project1.html">Project 1</a>
-      <a href="petpeeves.html">Pet Peeves/Project Ideas</a>
-      <!--comment-->
-    </nav>
+    {% include nav.html %}
     
     <h1>Arman's Portfolio</h1>
     <p>This is my portfolio I will be using for OBJECT.</p>
