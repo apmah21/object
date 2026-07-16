@@ -7,8 +7,12 @@ h1 {
   text-align: center;
 }
 
+a:link {
+  color: #0000FF;
+}
+
 a:visited {
-  color: #000077;
+  color: #000080;
 }
 
 nav a {
